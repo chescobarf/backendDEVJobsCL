@@ -9,9 +9,9 @@ const pool = mysql.createPool({
 
 let devJobsDB = {};
 
-devJobsDB.all = () => {
+devJobsDB.allOfertas = () => {
   return new Promise((resolve, reject) => {
-    pool.query("SELECT * FROM ofertas", (err, resuls) => {
+    pool.query("SELECT * FROM ofertas", (err, results) => {
       if (err) {
         return reject(err);
       }
@@ -20,7 +20,7 @@ devJobsDB.all = () => {
   });
 };
 
-devJobsDB.one = (id) => {
+devJobsDB.OfertaById = (id) => {
   return new Promise((resolve, reject) => {
     //pasamos el ? para preguntar si es lo mismo al id entregado, asi evitamo SQL Inyection
     pool.query("SELECT * FROM ofertas WHERE id=?", [id], (err, results) => {
@@ -28,6 +28,17 @@ devJobsDB.one = (id) => {
         return reject(err);
       }
       return resolve(results[0]);
+    });
+  });
+};
+
+devJobsDB.getAllTecnologias = () => {
+  return new Promise((resolve, reject) => {
+    pool.query("SELECT * FROM tecnologias", (err, results) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(results);
     });
   });
 };

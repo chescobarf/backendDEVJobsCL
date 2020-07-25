@@ -2,9 +2,9 @@ const express = require("express");
 const db = require("../db");
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
+router.get("/getAllOfertas", async (req, res, next) => {
   try {
-    let result = await db.all();
+    let result = await db.allOfertas();
     res.json(result);
   } catch (e) {
     console.log(e);
@@ -12,9 +12,19 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/getOferta/:id", async (req, res, next) => {
   try {
-    let result = await db.one(req.params.id);
+    let result = await db.OfertaById(req.params.id);
+    res.json(result);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+});
+
+router.get("/getAllTecnologias", async (req, res, next) => {
+  try {
+    let result = await db.getAllTecnologias();
     res.json(result);
   } catch (e) {
     console.log(e);
